@@ -8,8 +8,8 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerWidth;
+        this.canvas.width = 1024;
+        this.canvas.height = 768;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
@@ -21,6 +21,11 @@ var myGameArea = {
         })
         window.addEventListener('keyup', function (e) {
             myGameArea.keys[e.keyCode] = (e.type == "keydown");
+        })
+        window.addEventListener('mousemove', function (e) {
+            
+            myGameArea.mouse[0] = e.offsetX;
+            myGameArea.mouse[1] = e.offsetY;
         })
     },
     stop : function() {
@@ -54,6 +59,8 @@ function component(width, height, color, x, y, type) {
         this.angle += this.moveAngle * Math.PI / 180;
         this.x += this.speed * Math.sin(this.angle);
         this.y -= this.speed * Math.cos(this.angle);
+        this.x = myGameArea.mouse[0];
+        this.y = myGameArea.mouse[1];
     }
 }
 
