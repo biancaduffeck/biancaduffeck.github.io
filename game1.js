@@ -1,32 +1,31 @@
 var myGamePiece;
+var mywidth=1024;
+var myheight=768;
 
 function startGame() {
     myGamePiece = new component(30, 30, "red", 225, 225);
+    mycenter = new center(30, 30, "red", 225, 225);
     myGameArea.start();
+    
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 1024;
-        this.canvas.height = 768;
+        this.canvas.width = mywidth;
+        this.canvas.height = myheight;
+        this.mouse=[]
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
-        window.addEventListener('keydown', function (e) {
-            e.preventDefault();
-            myGameArea.keys = (myGameArea.keys || []);
-            myGameArea.keys[e.keyCode] = (e.type == "keydown");
-        })
-        window.addEventListener('keyup', function (e) {
-            myGameArea.keys[e.keyCode] = (e.type == "keydown");
-        })
+
         window.addEventListener('mousemove', function (e) {
             
             myGameArea.mouse[0] = e.offsetX;
             myGameArea.mouse[1] = e.offsetY;
         })
+        
     },
     stop : function() {
         clearInterval(this.interval);
@@ -64,6 +63,27 @@ function component(width, height, color, x, y, type) {
     }
 }
 
+function center(width, height, color, x, y, type) {
+    console.log("entrei")
+    this.type = type;
+    this.width = width;
+    this.height = height;
+    this.speed = 0;
+    this.angle = 0;
+    this.moveAngle = 0;
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.save();
+        ctx.beginPath();
+        ctx.fillStyle = "rgb(255 255 255 / 50%)";
+        ctx.arc(mywidth/2, myheight/2, 5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
 function updateGameArea() {
     myGameArea.clear();
     myGamePiece.moveAngle = 0;
@@ -74,4 +94,5 @@ function updateGameArea() {
     if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speed= -1; }
     myGamePiece.newPos();
     myGamePiece.update();
+    mycenter.update();
 }
