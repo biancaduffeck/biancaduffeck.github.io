@@ -1,10 +1,12 @@
-var myGamePiece;
+var myPaddle;
 var mywidth=1024;
 var myheight=768;
+var velocidadeGeral=2;
 
 function startGame() {
-    myGamePiece = new component(30, 30, "red", 225, 225);
+    myPaddle = new paddle(30, 30, "red", 225, 225);
     mycenter = new center(30, 30, "red", 225, 225);
+    myBolinhas=[]
     myGameArea.start();
     
 }
@@ -19,9 +21,7 @@ var myGameArea = {
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
-
-        window.addEventListener('mousemove', function (e) {
-            
+        window.addEventListener('mousemove', function (e) {    
             myGameArea.mouse[0] = e.offsetX;
             myGameArea.mouse[1] = e.offsetY;
         })
@@ -35,8 +35,7 @@ var myGameArea = {
     }
 }
 
-function component(width, height, color, x, y, type) {
-
+function paddle(width, height, color, x, y, type) {
     this.type = type;
     this.width = width;
     this.height = height;
@@ -49,13 +48,6 @@ function component(width, height, color, x, y, type) {
     this.size=1
     this.update = function() {
         ctx = myGameArea.context;
-        //ctx.save();
-        //ctx.translate(this.x, this.y);
-        //ctx.rotate(this.angle);
-        //ctx.fillStyle = color;
-        //ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
-        //ctx.restore();
-
         ctx.save();
         ctx.beginPath();
         distanceCenterX=this.x-mywidth/2
@@ -66,6 +58,7 @@ function component(width, height, color, x, y, type) {
         ctx.lineWidth = 2;
         ctx.strokeStyle = "white";
         ctx.stroke();
+
         ctx.restore();
     }
     this.newPos = function() {
@@ -78,7 +71,25 @@ function component(width, height, color, x, y, type) {
 }
 
 function center(width, height, color, x, y, type) {
-    console.log("entrei")
+    this.type = type;
+    this.width = width;
+    this.height = height;
+    this.speed = 0;
+    this.angle = 0;
+    this.moveAngle = 0;
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.save();
+        ctx.beginPath();
+        ctx.fillStyle = "rgb(255 255 255 / 100%)";
+        ctx.arc(mywidth/2, myheight/2, 2, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.restore();
+    }
+}
+function center(width, height, color, x, y, type) {
     this.type = type;
     this.width = width;
     this.height = height;
@@ -98,15 +109,56 @@ function center(width, height, color, x, y, type) {
     }
 }
 
+function bolinha(velocidadex, velocidadey) {
+    //console.log("X e Y="+x+" , "+y);
+    this.velocidadex = velocidadex;
+    this.velocidadey = velocidadey;
+    this.x=mywidth/2;
+    this.y=myheight/2;
+    this.update = function() {
+        console.log("X e Y="+this.x+" , "+this.y);
+        this.x+=velocidadex;
+        this.y+=velocidadey;
+        ctx = myGameArea.context;
+        ctx.save();
+        ctx.beginPath();
+        ctx.fillStyle = "rgb(255 0 0 / 100%)";
+        ctx.arc(this.x,this.y, 2, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
 function updateGameArea() {
     myGameArea.clear();
-    myGamePiece.moveAngle = 0;
-    myGamePiece.speed = 0;
-    if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.moveAngle = -1; }
-    if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.moveAngle = 1; }
-    if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speed= 1; }
-    if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speed= -1; }
-    myGamePiece.newPos();
-    myGamePiece.update();
+    myPaddle.newPos();
+    myPaddle.update();
+    myGameArea.frameNo += 1;
+    updateBolinhas()
     mycenter.update();
+}
+
+function updateBolinhas(){
+    
+    if (myGameArea.frameNo == 1 || everyinterval(50)) {
+        myBolinhas.push(new bolinha(posNegRandom()*velocidadeGeral,posNegRandom()*velocidadeGeral));
+    }
+    for(i=0; i<myBolinhas.length; i++){
+        myBolinhas[i].update();
+    }
+}
+
+
+function everyinterval(n) {
+    if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
+    return false;
+}
+
+function posNegRandom(){
+    if(Math.random()>0.5){
+        return Math.random()
+    }
+    else{
+        return -1*Math.random()
+    }
 }
