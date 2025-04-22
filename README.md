@@ -1,5 +1,7 @@
 # Hello There!
-access it to play some games: https://biancaduffeck.github.io/
+I'm Bianca and some games and small projects
+
+here is my minimalist game series (WIP): https://biancaduffeck.github.io/
 ## Game jam games:
 
 [Nostalgic Bubble](https://globalgamejam.org/games/2025/nostalgic-bubble-5)
