@@ -4,7 +4,7 @@ I'm Bianca and some games and small projects
 Main website: https://biancaduffeck.github.io/
 
 ## Game in progress
-Bubble Boy [playable](http://biancaduffeck.itch.io/bubble-boy) [repository](https://github.com/biancaduffeck/bubble-boy)
+Bubble Boy: [playable](http://biancaduffeck.itch.io/bubble-boy)/[repository](https://github.com/biancaduffeck/bubble-boy)
 
 ## Game jam games:
 
