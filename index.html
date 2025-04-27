@@ -1,18 +1,77 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>my-first-website</title>
-  <LINK href="styles.css" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bianca Duffeck</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+    .container {
+      background-color: #1e1e1e;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .links {
+      margin-top: 2rem;
+    }
+
+    .links a {
+      display: inline-block;
+      margin: 0 1rem;
+      color: #64b5f6;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .links a.github {
+      color: #f5f5f5;
+    }
+
+    .links a:hover {
+      color: #90caf9;
+    }
+  </style>
 </head>
-
 <body>
-
-<img src="https://octodex.github.com/images/daftpunktocat-thomas.gif" id="octocat" alt="octocat-gif" />
-
-<!-- Change this code here by copy and pasting your template on line 15 -->
-<p>Hello World! I’m teste. This is my website!</p>
-
+  <div class="container">
+    <h1>Bianca Duffeck</h1>
+    <p>Transitioning to a career in software development. I know a little bit of everything. Especially Python, JavaScript, C++ and Java.</p>
+    <div class="links">
+      <a href="https://github.com/biancaduffeck" target="_blank" class="github">GitHub</a>
+      <a href="https://www.linkedin.com/in/bianca-duffeck/" target="_blank" class="github">LinkedIn</a>
+    </div>
+  </div>
 </body>
 </html>
